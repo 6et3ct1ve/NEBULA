@@ -1,6 +1,6 @@
 # Python runtime
 python3.13
-python3.13-venv
+python3-venv
 python3-pip
 
 # DB
