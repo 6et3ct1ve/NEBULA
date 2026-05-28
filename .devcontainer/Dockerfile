@@ -13,9 +13,6 @@ RUN apt update && \
   sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
   locale-gen
 
-# ruff і mypy знаходять конфіг по батьківських директоріях
-COPY ../pyproject.toml /pyproject.toml
-
 ENV TZ=Etc/UTC
 ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
