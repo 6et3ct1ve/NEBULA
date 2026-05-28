@@ -1,0 +1,35 @@
+[project]
+name = "nebula"
+version = "0.1.0"
+description = "Notebook for Expense, Budget and Universal Ledger Accounting"
+requires-python = ">=3.13"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "mypy",
+    "pytest",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+
+[tool.ruff.lint]
+# E/W — pycodestyle, F — pyflakes, I — isort
+select = ["E", "W", "F", "I"]
+ignore = []
+
+[tool.ruff.format]
+# Black-сумісний стиль.
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

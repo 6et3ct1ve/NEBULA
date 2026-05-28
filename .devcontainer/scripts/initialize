@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+HISTORY_DIR="${HOME}/.devcontainers/$(basename "${PWD}")"
+HISTORY_FILE="${HISTORY_DIR}/.bash_history"
+
+mkdir -p "${HISTORY_DIR}"
+touch "${HISTORY_FILE}"

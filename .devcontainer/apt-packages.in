@@ -1,0 +1,15 @@
+# Python runtime
+python3.13
+python3.13-venv
+python3-pip
+
+# DB
+sqlite3
+
+# Dev utilities
+git
+curl
+openssh-client
+
+# Locale support
+locales
