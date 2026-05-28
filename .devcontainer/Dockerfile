@@ -38,4 +38,4 @@ RUN if id ubuntu >/dev/null 2>&1; then \
 USER ${CONTAINER_USER}
 
 # --user щоб pip не вимагав root після USER switch
-RUN pip install --user --no-cache-dir ruff mypy pytest
+RUN pip install --user --no-cache-dir --break-system-packages ruff mypy pytest
