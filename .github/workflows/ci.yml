@@ -12,6 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create devcontainer mounts
+        run: |
+          mkdir -p ~/.devcontainers/${{ github.event.repository.name }}
+          touch ~/.devcontainers/${{ github.event.repository.name }}/.bash_history
+
       # Той самий Dockerfile що й локально — середовище ідентичне
       - name: Run checks inside dev container
         uses: devcontainers/ci@v0.3
