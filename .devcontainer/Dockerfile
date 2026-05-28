@@ -7,7 +7,7 @@ FROM ubuntu:noble
 ARG DEBIAN_FRONTEND="noninteractive"
 
 RUN apt update && apt install -y software-properties-common && \
-    add-apt-repository universe && \
+    add-apt-repository -y ppa:deadsnakes/ppa && \
     rm -rf /var/lib/apt/lists/*
 
 COPY apt-packages.in /tmp/apt.in
