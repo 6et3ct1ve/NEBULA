@@ -2,7 +2,7 @@
 
 # Оновити digest: docker pull ubuntu:noble &&
 # docker inspect --format='{{index .RepoDigests 0}}' ubuntu:noble
-FROM ubuntu:noble@sha256:c4a8d5503dfb2a3eb8ab5f807da5bc69a85730fb49b5cfca2330194ebcc41c7b
+FROM ubuntu:noble
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
@@ -14,7 +14,7 @@ RUN apt update && \
   locale-gen
 
 # ruff і mypy знаходять конфіг по батьківських директоріях
-COPY pyproject.toml /pyproject.toml
+COPY ../pyproject.toml /pyproject.toml
 
 ENV TZ=Etc/UTC
 ENV LC_ALL=en_US.UTF-8
