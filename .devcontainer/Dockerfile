@@ -6,6 +6,10 @@ FROM ubuntu:noble
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
+RUN apt update && apt install -y software-properties-common && \
+    add-apt-repository universe && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY apt-packages.in /tmp/apt.in
 RUN apt update && \
   grep -vE '^\s*#' /tmp/apt.in | xargs apt install --no-install-recommends -y && \
