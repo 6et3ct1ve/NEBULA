@@ -8,6 +8,7 @@ def init_db(db_name):
         raise ValueError(f"Invalid database name: {db_name}")
 
     db = sqlite3.connect(db_name)
+    db.row_factory = sqlite3.Row
 
     db.execute("""
         CREATE TABLE IF NOT EXISTS persons (
