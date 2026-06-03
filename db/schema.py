@@ -1,7 +1,7 @@
 import sqlite3
 
 
-def init_db(db_name):
+def init_db(db_name: str) -> sqlite3.Connection:
     # Initiation of database
 
     if not db_name.endswith(".db"):
@@ -54,7 +54,7 @@ def init_db(db_name):
     return db
 
 
-def seed(conn):
+def seed(conn: sqlite3.Connection) -> None:
     # Create default categories and money value
 
     categories = [

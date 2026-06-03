@@ -1,14 +1,17 @@
+import sqlite3
+
+
 def add_transaction(
-    conn,
-    person_id,
-    category_id,
-    currency_id,
-    amount,
-    fx_rate_snapshot,
-    type_,
-    date,
-    note,
-):
+    conn: sqlite3.Connection,
+    person_id: int,
+    category_id: int,
+    currency_id: int,
+    amount: float,
+    fx_rate_snapshot: float,
+    type_: str,
+    date: str,
+    note: str,
+) -> int:
     # Add a new transaction to the database
 
     if type_ not in ("income", "expense"):
@@ -35,10 +38,10 @@ def add_transaction(
     )
     conn.commit()
 
-    return conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+    return int(conn.execute("SELECT last_insert_rowid()").fetchone()[0])
 
 
-def add_person(conn, name):
+def add_person(conn: sqlite3.Connection, name: str) -> int:
     # Add a new person to the database
 
     conn.execute(
@@ -48,10 +51,10 @@ def add_person(conn, name):
     )
     conn.commit()
 
-    return conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+    return int(conn.execute("SELECT last_insert_rowid()").fetchone()[0])
 
 
-def get_all_transactions(conn):
+def get_all_transactions(conn: sqlite3.Connection) -> list[sqlite3.Row]:
     # Retrieve all transactions from the database
 
     return conn.execute(
@@ -67,7 +70,7 @@ def get_all_transactions(conn):
     ).fetchall()
 
 
-def get_by_person(conn, person_id):
+def get_by_person(conn: sqlite3.Connection, person_id: int) -> list[sqlite3.Row]:
     # Retrieve transactions for a specific person
 
     return conn.execute(
@@ -85,7 +88,7 @@ def get_by_person(conn, person_id):
     ).fetchall()
 
 
-def get_by_category(conn, category_id):
+def get_by_category(conn: sqlite3.Connection, category_id: int) -> list[sqlite3.Row]:
     # Retrieve transactions for a specific category
 
     return conn.execute(
@@ -103,7 +106,7 @@ def get_by_category(conn, category_id):
     ).fetchall()
 
 
-def get_by_month(conn, month):
+def get_by_month(conn: sqlite3.Connection, month: str) -> list[sqlite3.Row]:
     # Retrieve transactions for a specific month
 
     return conn.execute(
@@ -121,7 +124,9 @@ def get_by_month(conn, month):
     ).fetchall()
 
 
-def get_by_quarter(conn, year, quarter):
+def get_by_quarter(
+    conn: sqlite3.Connection, year: str, quarter: str
+) -> list[sqlite3.Row]:
     # Retrieve transactions for a specific quarter
 
     return conn.execute(
@@ -145,7 +150,7 @@ def get_by_quarter(conn, year, quarter):
     ).fetchall()
 
 
-def get_by_year(conn, year):
+def get_by_year(conn: sqlite3.Connection, year: str) -> list[sqlite3.Row]:
     # Retrieve transactions for a specific year
 
     return conn.execute(
@@ -163,7 +168,9 @@ def get_by_year(conn, year):
     ).fetchall()
 
 
-def get_person_monthly_balance(conn, person_id, month):
+def get_person_monthly_balance(
+    conn: sqlite3.Connection, person_id: int, month: str
+) -> float:
     # Calculate the monthly balance for a specific person
 
     result = conn.execute(
@@ -185,7 +192,9 @@ def get_person_monthly_balance(conn, person_id, month):
     return total_income - total_expense
 
 
-def update_currency_rate(conn, currency_id, new_rate):
+def update_currency_rate(
+    conn: sqlite3.Connection, currency_id: int, new_rate: float
+) -> None:
     # Update the exchange rate for a specific currency
 
     conn.execute(
@@ -199,7 +208,7 @@ def update_currency_rate(conn, currency_id, new_rate):
     conn.commit()
 
 
-def delete_transaction(conn, transaction_id):
+def delete_transaction(conn: sqlite3.Connection, transaction_id: int) -> None:
     # Delete a transaction from the database
 
     conn.execute(
@@ -209,7 +218,7 @@ def delete_transaction(conn, transaction_id):
     conn.commit()
 
 
-def delete_person(conn, person_id):
+def delete_person(conn: sqlite3.Connection, person_id: int) -> None:
     # Delete a person from the database
     conn.execute(
         "DELETE FROM persons WHERE id = ?",
