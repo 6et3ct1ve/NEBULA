@@ -21,7 +21,7 @@ def init_db(db_name):
         CREATE TABLE IF NOT EXISTS categories (
             id INTEGER PRIMARY KEY,
             name TEXT,
-            type TEXT CHECK(type IN ('income', 'expense', 'transfer'))
+            is_income BOOLEAN CHECK(is_income IN (0, 1))
         )
     """)
     db.execute("""
@@ -59,40 +59,40 @@ def seed(conn):
 
     categories = [
         # Income
-        (1, "Salary", "income"),
-        (2, "Freelance", "income"),
-        (3, "Other income", "income"),
+        (1, "Salary", 1),
+        (2, "Freelance", 1),
+        (3, "Other income", 1),
         # Housing
-        (4, "Rent", "expense"),
-        (5, "Utilities", "expense"),
-        (6, "Internet/Phone", "expense"),
-        (7, "Home insurance", "expense"),
+        (4, "Rent", 0),
+        (5, "Utilities", 0),
+        (6, "Internet/Phone", 0),
+        (7, "Home insurance", 0),
         # Food
-        (8, "Groceries", "expense"),
-        (9, "Restaurants/Cafes", "expense"),
+        (8, "Groceries", 0),
+        (9, "Restaurants/Cafes", 0),
         # Transport
-        (10, "Fuel", "expense"),
-        (11, "Parking", "expense"),
-        (12, "Taxi/Transit", "expense"),
+        (10, "Fuel", 0),
+        (11, "Parking", 0),
+        (12, "Taxi/Transit", 0),
         # Health
-        (13, "Medical", "expense"),
-        (14, "Insurance", "expense"),
-        (15, "Gym", "expense"),
+        (13, "Medical", 0),
+        (14, "Insurance", 0),
+        (15, "Gym", 0),
         # Entertainment
-        (16, "Streaming", "expense"),
-        (17, "Games", "expense"),
-        (18, "Hobbies", "expense"),
+        (16, "Streaming", 0),
+        (17, "Games", 0),
+        (18, "Hobbies", 0),
         # Shopping
-        (19, "Clothing", "expense"),
-        (20, "Electronics", "expense"),
+        (19, "Clothing", 0),
+        (20, "Electronics", 0),
         # Personal
-        (21, "Beauty/Care", "expense"),
-        (22, "Education", "expense"),
+        (21, "Beauty/Care", 0),
+        (22, "Education", 0),
         # Finance
-        (23, "Savings", "transfer"),
-        (24, "Debt/Credit", "transfer"),
+        (23, "Savings", 0),
+        (24, "Debt/Credit", 0),
         # Other
-        (25, "Unexpected", "expense"),
+        (25, "Unexpected", 0),
     ]
 
     currencies = [
@@ -101,11 +101,14 @@ def seed(conn):
         (3, "EUR", 51.56, "2026-06-03"),
     ]
     conn.executemany(
-        "INSERT OR IGNORE INTO categories (id, name, type) VALUES (?, ?, ?)", categories
+        "INSERT OR IGNORE INTO categories (id, name, is_income)\
+        VALUES (?, ?, ?)",
+        categories,
     )
 
     conn.executemany(
-        "INSERT OR IGNORE INTO currencies (id, code, rate_to_uah, updated_at) VALUES (?, ?, ?, ?)",
+        "INSERT OR IGNORE INTO currencies (id, code, rate_to_uah, updated_at)\
+        VALUES (?, ?, ?, ?)",
         currencies,
     )
 
