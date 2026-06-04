@@ -1,10 +1,10 @@
-## Що змінено
+## What changed
 
-## Чому
+## Why
 
-## Чеклист
-- [ ] `ruff format` і `ruff check` проходять
-- [ ] `mypy` проходить
-- [ ] `pytest` проходить
-- [ ] Код читабельний і зрозумілий
-- [ ] Немає зайвого закоментованого коду
+## Checklist
+- [ ] `ruff format` and `ruff check` pass
+- [ ] `mypy` pass
+- [ ] `pytest` pass
+- [ ] Code readable and understandable
+- [ ] Don't have artifacts
